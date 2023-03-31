@@ -1,26 +1,42 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "lists.h"
 
 /**
-* print_list - prints all the elements of a list_t list
-*
-* @h: head pointer
-*
-* Return: number of nodes
-*/
-
-size_t print_list(const list_t *h)
+ * _strlen - function that returns the length of a string.
+ * @s : s is a character
+ * Return: value is i
+ */
+int _strlen(const char *s)
 {
-	size_t count = 0;
+	int i = 0;
 
-	while (h != NULL)
+	while (s[i] != '\0')
 	{
-		if (h->str == NULL)
-			printf("[%d] %s\n", 0, "(nil)");
-		else
-			printf("[%d] %s\n", h->len, h->str);
-		h = h->next;
-		count++;
+		i++;
 	}
+	return (i);
+}
 
-	return (count);
+/**
+ * add_node - add a new node at beginning of a list_t list.
+ * @head: head of a list_t list.
+ * @str: value to insert into element.
+ * Return: the number of nodes.
+ */
+list_t *add_node(list_t **head, const char *str)
+{
+	list_t *add;
+
+	add = malloc(sizeof(list_t));
+	if (add == NULL)
+		return (NULL);
+	add->str = strdup(str);
+
+	add->len = _strlen(str);
+	add->next = *head;
+	*head = add;
+
+	return (add);
 }
